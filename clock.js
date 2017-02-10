@@ -47,14 +47,17 @@ $(document).ready(function(){
 
   var breakTime;
   var sessionTime;
+  var startClicked = false;
 
   $("#start").click(function(){
+    if (!startClicked) {
+      //get values of times
+      startClicked = true;
+      sessionTime = parseInt($("#session-counter").data("minutes"));
+      breakTime = parseInt($("#break-counter").data("minutes"));
 
-    //get values of times
-    sessionTime = parseInt($("#session-counter").data("minutes"));
-    breakTime = parseInt($("#break-counter").data("minutes"));
-
-    startSessions(sessionTime, breakTime);
+      startSessions(sessionTime, breakTime);
+    }
   });
 
   function startSessions(sessionTime, breakTime) {
@@ -71,7 +74,7 @@ $(document).ready(function(){
       $("#start").css("display", "none");
       $("#input-form").animate({opacity: 0}, 1000, function() {
         $("#input-form").css("display", "none");});
-      $("#countdown-clock").animate({opacity: 1}, 1000);
+      $("#countdown-clock").css("display", "inherit").animate({opacity: 1}, 1000);
       $("body").css("animation", "startDay 3s");
       $("#day").css("animation-delay", "3s").css("animation", dayAnimation);
       $("#sun").css("animation-delay", "3s").css("animation", sunAnimation);
@@ -81,6 +84,9 @@ $(document).ready(function(){
     }
 
     function startNight() {
+      countdownClock.stop();
+      chime.sound.play();
+      var fade = setTimeout(chime.fadeout, 2000);
       $("body").css("animation", "startNight 3s");
       $("#day").css("display", "none");
       $("#night").css("animation-delay", "3s").css("animation", nightAnimation);
@@ -91,12 +97,15 @@ $(document).ready(function(){
     }
 
     function returnToStart() {
+      bell.ring.play();
+      var fade = setTimeout(bell.fadeout, 2000);
       $("#countdown-clock").animate({opacity: 0}, 1000);
       $("#night").hide("slow")
       $("#input-form").css("opacity",1).show('slow');
       $("#break").show('slow');
       $("#session").show('slow');
       $("#start").show('slow');
+      startClicked = false;
     }
 
     var convertedTime = (sessionTime * 60000) + 1000; //from min to ms + delays
@@ -109,7 +118,7 @@ $(document).ready(function(){
 
   var tick;
   
-  var countdownClock = {
+  const countdownClock = {
 
     time: 0,
 
@@ -163,3 +172,47 @@ $(document).ready(function(){
   }
 
 });
+
+//set up audio
+let vol = 1.0, //initial volume setting
+  interval = 250; //interval used in music.fadeout();
+
+const bell = {
+  ring: new Audio ("doorbell-1.mp3"),
+  fadeout: function() {
+        let fade = setInterval(
+          function() {
+            // Reduce volume by ~.10 as long as it is above 0
+            if (vol > 0.05) {
+              vol -= 0.04999;
+              bell.ring.volume = vol;
+            }
+            else {
+              // Stop the setInterval when 0 is reached
+              clearInterval(fade);
+              vol = 1.0;
+              bell.ring.volume = vol;
+            }
+          }, interval)
+      }
+}
+
+const chime = {
+  sound: new Audio ("wind-chime-2.mp3"),
+  fadeout: function() {
+        let fade = setInterval(
+          function() {
+            // Reduce volume by ~.10 as long as it is above 0
+            if (vol > 0.05) {
+              vol -= 0.04999;
+              chime.sound.volume = vol;
+            }
+            else {
+              // Stop the setInterval when 0 is reached
+              clearInterval(fade);
+              vol = 1.0;
+              chime.sound.volume = vol;
+            }
+          }, interval)
+      }
+}
