@@ -1,0 +1,379 @@
+html { 
+	height: 100%; 
+}
+
+body {
+	position: relative;
+	height: 100vh;
+	width: 100%;
+	overflow: auto;
+	white-space: nowrap;
+	background-color: #c6ddff;
+}
+
+:root {
+	--sun-size: 575px;
+	--sun-start: -575px;
+}
+
+#hamburger {
+	position: absolute;
+	top:3%;
+	left: 1%;
+	font-size: 300%;
+}
+
+#header {
+	display:none;
+	position: absolute;
+	top:3%;
+	left:1%;
+	border: 10px solid white;
+	border-radius: 10px;
+	background-color: rgba(255, 255, 255, 0.75);
+	height: 6em;
+	width: 150px;
+}
+
+#title {
+	font-style: bold;
+	font-size: 137.5%;
+	text-decoration: underline;
+}
+
+#info div {
+	padding: 2% 0 2% 0;
+}
+
+#header a {
+	color: black;
+}
+
+#input-form {
+	position: absolute;
+	top: 2.5vh;
+	left: 29%;
+	height: var(--sun-size);
+	width: var(--sun-size);
+	border: 1px solid rgba(254, 255, 158, 0.5);
+	border-radius: 50%;
+	background-color: orange;
+	box-shadow: inset 0 0 50px rgba(254, 255, 158, 1), 0 0 150px rgba(254, 255, 158, 1);
+	padding: 1em;
+	z-index: 2;
+}
+
+#break, #session {
+	display: inline-block;
+	width: 30%;
+	margin: 20% 10% 0 10%;
+	text-align: center;
+	font-size: 200%;
+}
+
+#break-counter, #session-counter {
+
+	font-size: 150%;
+}
+
+.counter-element {
+	margin-top: 0.25em;
+	margin-bottom: 0.25em;
+}
+
+#start {
+	display: block;
+	width: 80%;
+	padding: .25em;
+	font-size: 150%;
+	border-radius: 10px;
+	margin: 0 10% 0 10%;
+	background-color: rgb(254, 255, 198);
+}
+
+#start:hover {
+	background-color: rgb(254, 255, 158);
+}
+
+#countdown-clock {
+	position: absolute;
+	opacity: 0;
+	z-index: 3;
+	top: 15%;
+	left: 25%;
+	width: 50%;
+	border: 10px solid white;
+	border-radius: 10px;
+	font-size: 700%;
+	padding: 0.5%;
+	text-align: center;
+	background-color: rgba(255,255,255, 0.75);
+	color: black;
+}
+
+#day {
+	width: 100%;
+	height: 100%;
+	position: relative;
+	background-color: #c6ddff;
+	/*animation: daySky 50s;*/
+	z-index: 1;
+	display: none;
+}
+
+#night {
+	width: 100%;
+	height: 100%;
+	position: relative;
+	background-color: black;
+	/*animation: nightSky 50s;*/
+	display: none;
+}
+
+#sun {
+	position: absolute;
+	background-color: white;
+	opacity: 1;
+	bottom: var(--sun-start);;
+	left: 29%;
+	width: var(--sun-size);
+	height: var(--sun-size);
+	border: 1px solid rgba(254, 255, 198, 0.5);
+	border-radius: 50%;
+	box-shadow: inset 0 0 50px rgba(254, 255, 198, 1), 0 0 150px rgba(254, 255, 198, 1);
+	/*animation: sunRise 50s;*/
+}
+
+#moon {
+	z-index: 2;
+	position: absolute;
+	background-color: white;
+	opacity: 1;
+	bottom: -25%;
+	left: -20%;
+	width: 150px;
+	height: 150px;
+	border: 1px solid rgba(238, 238, 238, 0.5);
+	border-radius: 50%;
+	box-shadow: inset 0 0 50px rgba(238, 238, 238, 1), 0 0 150px rgba(238, 238, 238, 1);
+	/*animation: moonRise 50s;*/
+}
+
+#star1 {
+	position: absolute;
+	bottom: 75%;
+	left: 10%;
+	animation: starShine 6s infinite;
+}
+#star2 {
+	position: absolute;
+	bottom: 35%;
+	left: 60%;
+	animation-delay: 2s;
+	animation: starShine 5s infinite;
+}
+#star3 {
+	position: absolute;
+	bottom: 40%;
+	left: 50%;
+	animation: starShine 2s infinite;
+}
+#star4 {
+	position: absolute;
+	bottom: 15%;
+	left: 88%;
+	animation-delay: 7s;
+	animation: starShine 4s infinite;
+}
+#star5 {
+	position: absolute;
+	bottom: 25%;
+	left: 20%;
+	animation-delay: 3s;
+	animation: starShine 3s infinite;
+}
+#star6 {
+	position: absolute;
+	bottom: 90%;
+	left: 75%;
+	animation: starShine 3.5s infinite;
+}
+#star7 {
+	position: absolute;
+	bottom: 84%;
+	left: 40%;
+	animation-delay: 4s;
+	animation: starShine 2.5s infinite;
+}
+
+
+.point1 {
+	position: absolute;
+	bottom: -5px;
+	width: 0px;
+	height: 0px;
+	/*border-bottom: 10px solid transparent;*/
+	border-top: 10px solid white;
+	border-right: 4px solid transparent;
+	border-left: 4px solid transparent;
+}
+
+.point2 {
+	position: absolute;
+	bottom: 5px;
+	width: 0px;
+	height: 0px;
+	border-bottom: 10px solid white;
+	/*border-top: 20px solid white;*/
+	border-right: 4px solid transparent;
+	border-left: 4px solid transparent;
+}
+
+.point3 {
+	position: absolute;
+	left: -6.5px;
+	bottom: 1px;
+	width: 0px;
+	height: 0px;
+	border-bottom: 4px solid transparent;
+	border-top: 4px solid transparent;
+	border-right: 10px solid white;
+	/*border-left: 4px solid transparent;*/
+}
+
+.point4 {
+	position: absolute;
+	left: 5px;
+	bottom: 1px;
+	width: 0px;
+	height: 0px;
+	border-bottom: 4px solid transparent;
+	border-top: 4px solid transparent;
+	/*border-right: 10px solid white;*/
+	border-left: 10px solid white;
+}
+
+@keyframes startDay {
+	0% {
+		background-color: #c6ddff;
+	}
+
+	100% {
+		background-color: #05204c;
+	}
+}
+
+@keyframes startNight {
+	0% {
+		background-color: #05204c;
+	}
+
+	100% {
+		background-color: #c6ddff;
+	}
+}
+
+@keyframes starShine {
+	0% {
+		opacity: 1;
+	}
+
+	50% {
+		opacity: 0;
+	}
+
+	100% {
+		opacity: 1;
+	}
+}
+
+@keyframes daySky {
+	0% {
+		background-color: #05204c;
+	}
+
+	25% {
+		background-color: #4171bf;
+	}
+	100% {
+		background-color: #c6ddff;
+	}
+}
+
+@keyframes nightSky {
+	0% {
+		background-color: #05204c;
+	}
+	100% {
+		background-color: black;
+	}
+}
+
+@keyframes sunRise {
+	0% {
+		background-color: orange;
+		bottom: var(--sun-start);
+	}
+
+
+
+	100% {
+		background-color: white;
+		bottom: var(--sun-size);
+	}
+}
+
+@keyframes moonRise {
+	0% {
+		background-color: pink;
+		opacity: 1;
+		bottom: -25%;
+		left: -20%;
+		width: 250px;
+		height: 250px;
+	}
+
+	100% {
+		background-color: white;
+		opacity: 1;
+		bottom: 90%;
+		left: 90%;
+		width: 150px;
+		height: 150px;
+	}
+}
+
+@media screen and (max-width: 768px) {
+
+	#break, #session {
+		display: inline-block;
+		width: 25%;
+		margin: 25% 12.5% 0 12.5%;
+	}
+
+	#start {
+		width: 60%;
+		margin: 5% 20% 0 20%;
+	}
+}
+
+@media screen and (max-width: 640px) {
+
+
+	#break, #session {
+		display: inline-block;
+		width: 25%;
+		margin: 15% 12.5% 0 12.5%;
+	}
+
+	#start {
+		width: 40%;
+		margin: 0 30% 0 30%;
+	}
+
+	#countdown-clock {
+
+		font-size: 200%;
+	}
+
+}
