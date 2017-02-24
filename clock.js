@@ -1,6 +1,13 @@
 $(document).ready(function(){
+  //set date on menu
+  var d = new Date();
+  var year = d.getFullYear();
+  $("#year").text(year);
+
+  //initialize
   var alarm = false;
 
+  //make responsive to screen width
   if(window.screen.width > 575) {
     var left = ((window.screen.width - 575)/2) + "px";
     console.log(left);
@@ -12,6 +19,7 @@ $(document).ready(function(){
     $("#countdown-clock").css("left", 0).css("width", window.screen.width);
   }
 
+  //mouseevents on menu
   $("#hamburger").on("mouseenter", function() {
     $("#hamburger").hide('fast');
     $("#header").show('fast');
@@ -22,45 +30,56 @@ $(document).ready(function(){
     $("#hamburger").show('fast');
   });
   
+  //click events to raise or lower minutes for break and session times
   $(".up").click(function(){
+    //pull current minutes
     var typeCounter = "#" + $(this).data("period") + "-counter";
     var typeCount = "#" + $(this).data("period") + "-count";
     var count = parseInt($(typeCounter).data("minutes"));
+    //add
     count++;
-    console.log(count);
+    // console.log(count);
+    //update DOM
     $(typeCounter).data("minutes", count);
     $(typeCount).html(count);
   });
 
   $(".down").click(function(){
+    //pull current minutes
     var typeCounter = "#" + $(this).data("period") + "-counter";
     var typeCount = "#" + $(this).data("period") + "-count";
     var count = parseInt($(typeCounter).data("minutes"));
+    //subtract
     count--;
     if (count === 0) {
       count = 1;
     }
-    console.log(count);
+    // console.log(count);
+    // update DOM
     $(typeCounter).data("minutes", count);
     $(typeCount).html(count);
   });
 
+  //initialize
   var breakTime;
   var sessionTime;
   var startClicked = false;
 
+  //start button click event
   $("#start").click(function(){
     if (!startClicked) {
       //get values of times
       startClicked = true;
       sessionTime = parseInt($("#session-counter").data("minutes"));
       breakTime = parseInt($("#break-counter").data("minutes"));
-
+      //call function to start countdowns
       startSessions(sessionTime, breakTime);
     }
   });
 
+
   function startSessions(sessionTime, breakTime) {
+    //convert time for use by css animations
     var dayTime = sessionTime * 60 + "s";
     var dayAnimation = "daySky " + dayTime;
     var sunAnimation = "sunRise " + dayTime;
@@ -68,6 +87,7 @@ $(document).ready(function(){
     var nightAnimation = "nightSky " + nightTime;
     var moonAnimation = "moonRise " + nightTime;
 
+    //update DOM for Main session , ie daytime
     function startDay () {
       $("#break").css("display", "none");
       $("#session").css("display", "none");
@@ -83,6 +103,7 @@ $(document).ready(function(){
       countdownClock.start();
     }
 
+    //update DOM for Break session, ie nighttime
     function startNight() {
       countdownClock.stop();
       chime.sound.play();
@@ -96,6 +117,7 @@ $(document).ready(function(){
       countdownClock.start();
     }
 
+    //update DOM after both sessions completed
     function returnToStart() {
       bell.ring.play();
       var fade = setTimeout(bell.fadeout, 2000);
@@ -108,16 +130,19 @@ $(document).ready(function(){
       startClicked = false;
     }
 
+    // convert time to milliseconds and pass to timers as delays
     var convertedTime = (sessionTime * 60000) + 1000; //from min to ms + delays
     var nightTimer = setTimeout(startNight, convertedTime);
-    convertedTime += (breakTime * 60000);
+    convertedTime += (breakTime * 60000) + 1000;
     var finishTimer = setTimeout(returnToStart, convertedTime);
     startDay();
     
   }
 
+  //initialize setInterval
   var tick;
   
+  //countdown clock functionality
   const countdownClock = {
 
     time: 0,
@@ -131,10 +156,10 @@ $(document).ready(function(){
     },
 
     countdown : function() {
-      countdownClock.time--;
       let currentTime = countdownClock.timeConverter(countdownClock.time);
       $("#countdown-clock").html(currentTime);
-      if (countdownClock.time === 0) {
+      countdownClock.time--;
+      if (countdownClock.time < 0) {
           countdownClock.stop();
       }
     },
